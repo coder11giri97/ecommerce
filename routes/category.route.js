@@ -8,7 +8,7 @@ module.exports = function(app){
      //route for creating new category
      // 'ecomm/api/v1/categories is api uri -- unviversal resource identifier
 
-     app.post('ecomm/api/v1/categories' , controller.create);
+     app.post('/ecomm/api/v1/categories' , controller.create);
 
       
 
@@ -16,7 +16,10 @@ module.exports = function(app){
      //route for  getting all the categories 
      // 'ecomm/api/v1/categories is api uri -- unviversal resource identifier
 
-     app.get('ecomm/api/v1/categories', controller.findAll)
+     app.get('/ecomm/api/v1/categories', controller.findAll)
 
+     
 
+     // route for getting the category based on category id
+     app.get('/ecomm/api/v1/categories/:id', controller.findOne)
 }
