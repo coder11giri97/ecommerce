@@ -23,11 +23,28 @@ exports.create = (req , res)=>{
 
    }).caatch(err =>{
        console.log(`issue in inserting the category name: [ ${category.name}].Error message :${err.message}`);
-       res.status(500).send{
+       res.status(500).send({
              message : `some internal eroor happened`
-       }
+       })
    })
 
 
 
+}
+
+
+/**
+ * 
+ * hanlder for getting all the categories
+ * 
+ */
+
+exports.findAll = (req, res) =>{
+      Category.findAll().then(categories =>{
+          res.status(200).send(categories);
+      }).catch(err=>{
+        res.status(500).send({
+          message : `some internal eroor happened`
+      })
+    })
 }
