@@ -115,6 +115,21 @@ exports.update = (req, res) =>{
  *providing support for deleting the category
  */
 
-// exports.delete = (req, res) =>{
+exports.delete = (req, res) =>{
+      const categoryId = req.params.id;
 
-// }
+      Category.destroy({
+           where : {
+               id : categoryId
+           }
+      }).then(result =>{
+         res.status(200).send({
+            message : "successfully deleted"
+         })
+      }).catch(err =>{
+        res.status(500).send({
+            message : "some internal error happened"
+         
+      })
+    })
+ }

@@ -22,4 +22,19 @@ module.exports = function(app){
 
      // route for getting the category based on category id
      app.get('/ecomm/api/v1/categories/:id', controller.findOne)
+
+
+     //route for updating the category
+
+      app.put('/ecomm/api/v1/categories/:id' , controller.update)
+
+     // route for deleting the category
+
+      app.delete('/ecomm/api/v1/categories/:id' , controller.delete)
+
+     // route for getting the category based on the name - filter the result based on name
+
+
+
+
 }
