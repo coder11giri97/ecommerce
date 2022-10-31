@@ -58,7 +58,7 @@ exports.findOne = (req, res) =>{
      const categoryId = req.params.id;
 
      Category.findByPk(categoryId).then(categoryId =>{
-          res.status(201).send(categoryId);
+          res.status(200).send(categoryId);
 
      }).catch(err =>{
         res.status(500).send({
@@ -92,13 +92,29 @@ exports.update = (req, res) =>{
           where : {id : categoryId},
           returning : true
       }).then(updatedCategory =>{
-        res.status(200).send(updatedCategory);
+        // need to make a get call to get the updated category
+        console.log(updatedCategory);
+        Category.findByPk(categoryId).then(categoryRes =>{
+             res.status(200).send(categoryRes);
+        }).catch(err =>{
+            res.status(500).send({
+                message : "some interal error happened"
+            })
+        })
+        
       }).catch(err =>{
         res.status(500).send({
             message : "some internal error happened"
         })
       })
-
-
-
 }
+
+
+/**
+ * 
+ *providing support for deleting the category
+ */
+
+// exports.delete = (req, res) =>{
+
+// }
