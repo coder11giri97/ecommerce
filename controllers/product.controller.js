@@ -73,12 +73,72 @@ exports.findOne = (req, res) => {
 }
 
 
-//handler for updating product
+/**
+ * Update an existing product
+ */
+ exports.update = (req, res) => {
 
+    /**
+     * Validation of the request body
+     */
 
+    if (!req.body.name) {
+        res.status(400).send({
+            message: "Name of the product can't be empty !"
+        })
+        return;
+    }
 
-//handler for deleting product
+    /**
+     * Creation of the Product object to be stored in the DB
+     */
+    const product = {
+        name: req.body.name,
+        description: req.body.description
+    };
+    const productId = req.params.id;
 
+    Product.update(product, {
+        returning: true,
+        where: { id: productId }
+    }).then(updatedProduct => {
+
+        Product.findByPk(productId).then(product => {
+            res.status(200).send(product);
+        }).catch(err => {
+            res.status(500).send({
+                message: "Some Internal error while fetching the product based on the id"
+            })
+        })
+    }).catch(err => {
+        res.status(500).send({
+            message: "Some Internal error while fetching the product based on the id"
+        })
+    })
+}
+
+/**
+ * Delete an existing product based on the product name
+ */
+ exports.delete = (req, res) => {
+    const productId = req.params.id;
+
+    Product.destroy({
+        where: { 
+            id: productId 
+        }
+    }).then(result => {
+        res.status(200).send(
+            {
+            message: "Successfully deleted the product"
+        }
+        );
+    }).catch(err => {
+        res.status(500).send({
+            message: "Some Internal error while deleting the product based on the id"
+        })
+    })
+}
 
 
 

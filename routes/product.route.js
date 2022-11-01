@@ -20,10 +20,14 @@ module.exports = (app) =>{
 
    app.get('/ecomm/api/v1/products/:id', productController.findOne);
 
-   // route for updating products
+    //route for updating the category
 
+    app.put('/ecomm/api/v1/products/:id' , productController.update)
 
-   // route for deleting prpducts
+    // route for deleting the category
+
+     app.delete('/ecomm/api/v1/products/:id' , productController.delete)
+
 
 
 }
