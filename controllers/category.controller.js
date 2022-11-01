@@ -40,7 +40,46 @@ exports.create = (req , res)=>{
  */
 
 exports.findAll = (req, res) =>{
-      Category.findAll().then(categories =>{
+
+      // localhost:8080/ecomm/api/v1/categories/?name=electronics -- this is called as query params
+
+      /**
+       * 
+       * path param : /ecomm/api/v1/categories/123      123 is path param
+       * 
+       * query param : /ecomm/api/v1/categories?name=giri       name="giri" is query param
+       * 
+       * query params are optional ,hence they will not match route path
+       * 
+       */
+
+
+
+
+
+      /**
+       * need to intercept the query params and use it
+       * 
+       */
+        
+       const categoryName = req.query.name; // will get query stored in categiryName
+
+       /**
+        * applying name filter if get the query param
+        * else no filter
+        */
+let promise ;
+        if(categoryName){
+           promise =  Category.findAll({
+                where : {
+                    name : categoryName
+                }
+            })
+        }else{
+            promise = Category.findAll();
+        }
+
+       promise.then(categories =>{
           res.status(200).send(categories);
       }).catch(err=>{
         res.status(500).send({
@@ -133,3 +172,5 @@ exports.delete = (req, res) =>{
       })
     })
  }
+
+
