@@ -18,11 +18,12 @@ module.exports = (app) =>{
 
    //route for getting products by id
 
+   app.get('/ecomm/api/v1/products/:id', productController.findOne);
 
    // route for updating products
 
 
    // route for deleting prpducts
 
-   
+
 }

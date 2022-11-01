@@ -60,7 +60,17 @@ promise.then(products =>{
 }
 
 //handler for getting product by id
+exports.findOne = (req, res) => {
+    const productId = req.params.id;
 
+    Product.findByPk(productId).then(product => {
+        res.status(200).send(product);
+    }).catch(err => {
+        res.status(500).send({
+            message: "Some Internal error while fetching the product based on the id"
+        })
+    })
+}
 
 
 //handler for updating product
