@@ -33,9 +33,31 @@ exports.create = (req ,res) =>{
 
 
 
-// handler for getting all products
+// handler for getting all products or getting products by name if names  query i
+
+exports.findAll = (req ,res) =>{
+     let productName = req.query.name;
+     let promise ;
+     if(productName){
+      promise = Product.findAll({
+         where : {
+            name : productName
+         }
+      });
+
+     }else {
+        promise = Product.findAll();
+     }
 
 
+promise.then(products =>{
+    res.status(200).send(products);
+}).catch(err => {
+    res.status(500).send({
+        message : "some internal error happened"
+    })
+})
+}
 
 //handler for getting product by id
 
