@@ -3,6 +3,7 @@
  */
 const db = require('../models');
 const Product = db.product;
+const Category = db.category;
 
 // handler for creating products
 
@@ -12,7 +13,8 @@ exports.create = (req ,res) =>{
      const prod = {
           name : req.body.name,
           description : req.body.description,
-          cost : req.body.cost
+          cost : req.body.cost,
+          categoryId: req.body.categoryId
      }
 
      //store the prod in db
