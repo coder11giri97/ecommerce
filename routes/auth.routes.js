@@ -1,14 +1,11 @@
+const { verifySignUp } = require("../middlewares");
+const controller = require("../controllers/auth.controller");
 
-const authController = require("../controllers/auth.controller");
-
-module.exports = (app) =>{
+module.exports = function(app) {
     
-    // route for user creation
 
-    app.post("/ecomm/api/v1/auth/signup", authController.signup );
+    app.post( "/ecomm/api/v1/auth/signup",[  verifySignUp.checkDuplicateUsernameOrEmail,verifySignUp.checkRolesExisted], controller.signup);
 
-    // route for user signin
-
-    app.post("/ecomm/api/v1/auth/signin" , authController.signin);
+    app.post("/ecomm/api/v1/auth/signin", controller.signin);
     
 };
