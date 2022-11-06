@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const serverConfig = require('./configs/server.config');
 
+
 const app = express();
 
 /**registering body-parser middleware */
@@ -13,6 +14,8 @@ app.use(bodyParser.json());
 const db = require("./models"); // node will find index.js form models folder -- standard naming
 const Category = db.category;
 const Product = db.product; 
+
+const Role = db.role;
 
 //Setting the One to Many relationship between Category and Product
 Category.hasMany(Product); // This will create a foreign key column( categoryId) in Product table
@@ -55,6 +58,22 @@ function init() {
         console.log("Error while initializing ategories table");
     })
 
+
+
+      /**
+     * Adding roles
+     */
+       Role.create({
+        id:1,
+        name:"user"
+    });
+    Role.create({
+        id:2,
+        name:"admin"
+    })
+
+
+
 }
 
 
@@ -63,6 +82,7 @@ function init() {
 //initialise the routes
 require('./routes/category.route')(app);
 require('./routes/product.route')(app);
+require('./routes/auth.routes')(app);
 app.listen(serverConfig.PORT,() =>{
     console.log("application started");
 })
