@@ -22,7 +22,7 @@ const sequelize = new Sequelize(
 );
 
 /**
- *  expose the sequelize and category model
+ *  expose the sequelize and category model and product model and user model and role model
  * 
  */
 
@@ -31,5 +31,34 @@ var db =  {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.category = require('./category.model')(sequelize, Sequelize);
+db.product = require('./product.model')(sequelize, Sequelize);
+db.user = require('./user.model.js')(sequelize, Sequelize);
+db.role = require('./role.model.js')(sequelize, Sequelize);
+
+
+
+
+/**
+   * Establishing the relationship between Role and User
+   */
+ db.role.belongsToMany(db.user, {
+    through: "user_roles",
+    foreignKey: "roleId",
+    otherKey: "userId"
+});
+db.user.belongsToMany(db.role, {
+    through: "user_roles",
+    foreignKey: "userId",
+    otherKey: "roleId"
+});
+
+
+db.ROLES = ["user", "admin"];
+
+
+
+
 
 module.exports = db;
+
+
