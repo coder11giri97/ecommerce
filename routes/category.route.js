@@ -3,14 +3,14 @@
  */
 
 const controller = require("../controllers/category.controller");
-const { requestValidator } = require("../middlewares");
+const { requestValidator , authJwt } = require("../middlewares");
 
 
 module.exports = function(app){
      //route for creating new category
      // 'ecomm/api/v1/categories is api uri -- unviversal resource identifier
 
-     app.post('/ecomm/api/v1/categories' ,[requestValidator.validateCategoryRequest], controller.create);
+     app.post('/ecomm/api/v1/categories' ,[authJwt.verifyToken,authJwt.isAdmin ,  requestValidator.validateCategoryRequest], controller.create);
 
       
 
@@ -28,11 +28,12 @@ module.exports = function(app){
 
      //route for updating the category
 
-      app.put('/ecomm/api/v1/categories/:id' ,[requestValidator.validateCategoryRequest], controller.update)
+      app.put('/ecomm/api/v1/categories/:id' ,[requestValidator.validateCategoryRequest , authJwt.verifyToken,authJwt.isAdmin], controller.update)
 
      // route for deleting the category
 
-      app.delete('/ecomm/api/v1/categories/:id' , controller.delete)
+      app.delete('/ecomm/api/v1/categories/:id' ,[authJwt.verifyToken,authJwt.isAdmin], controller.delete)
+      
 
 
 

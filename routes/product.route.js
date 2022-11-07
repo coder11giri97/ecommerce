@@ -5,12 +5,12 @@
 
 
 const productController = require("../controllers/product.controller");
-const { requestValidator } = require("../middlewares");
+const { authJwt , requestValidator } = require("../middlewares");
 
 module.exports = (app) =>{
     
    // route for creating a new product
-   app.post("/ecomm/api/v1/products" ,[requestValidator.validateProductRequest],productController.create );
+   app.post("/ecomm/api/v1/products" ,[requestValidator.validateProductRequest, authJwt.verifyToken,authJwt.isAdmin],productController.create );
 
 
    //route for getting products by name or getting all products if name query is not given
@@ -23,7 +23,7 @@ module.exports = (app) =>{
 
     //route for updating the category
 
-    app.put('/ecomm/api/v1/products/:id' ,[requestValidator.validateProductRequest], productController.update)
+    app.put('/ecomm/api/v1/products/:id' ,[requestValidator.validateProductRequest,authJwt.verifyToken,authJwt.isAdmin], productController.update)
 
     // route for deleting the category
 
