@@ -83,6 +83,7 @@ function init() {
 require('./routes/category.route')(app);
 require('./routes/product.route')(app);
 require('./routes/auth.routes')(app);
+require('./routes/cart.routes')(app);
 app.listen(serverConfig.PORT,() =>{
     console.log("application started");
 })
