@@ -13,7 +13,7 @@
    * Creating authenticated Order APIs
 
 
-### Tech
+## Tech
 
    * Node.js
 
@@ -28,12 +28,13 @@
    * Bcryptjs
 
 
-#### Installation
+## Installation
 
-   this app requires Node.js v14+ to run.
+   This app requires Node.js v14+ to run.
+   
    Install the dependencies and devDependencies and start the server.
 
-   cd eCommerce
+   cd EcommerceApp
 
    npm install
 
