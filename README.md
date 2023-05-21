@@ -15,9 +15,9 @@
 
 ## Tech
 
-   * Node.js
 
-   * Express.js
+
+* Express.js
 
    * Sequelize ( ORM )
 
